@@ -515,6 +515,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   prefabToSpawn: {fileID: 7861869500680500605, guid: 913b1638b72058e4a9d14c094b18725e, type: 3}
+  cooldownTime: 2
+  timeSinceLastSpawn: 0
+  canSpawn: 1
 --- !u!23 &1661892966
 MeshRenderer:
   m_ObjectHideFlags: 0

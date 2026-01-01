@@ -27,7 +27,8 @@ public class Merge : MonoBehaviour
     private Transform Transform;
     private SpriteRenderer sr;
 
-    private void Start()
+
+    public void Start()
     {
         sr = GetComponent<SpriteRenderer>();
         sr.sprite = ballSprites[(int)ball];
@@ -35,13 +36,31 @@ public class Merge : MonoBehaviour
         transform.localScale = Vector3.one;
     }
 
-    public void UpgradeBall()
+    public void Update()
     {
-        ball++;
-        float scale = 1.5f * (int)ball;
-        transform.localScale = scale * new Vector3(1,1,0);
-        sr.sprite = ballSprites[(int)ball];
+        var ballIndex = (int)ball;
+        float scale = ballIndex != 0 ? 1.5f * ballIndex : 1;
+        transform.localScale = scale * new Vector3(1, 1, 1);
     }
+
+    //public void UpgradeBall()
+    //{
+    //    ball++;
+    //    float scale = 1.5f * (int)ball;
+    //    transform.localScale = scale * new Vector3(1,1,0);
+    //    sr.sprite = ballSprites[(int)ball];
+    //}
+
+
+    public void SetBallStage(int stage)
+    {
+        BallType type = (BallType)(stage);
+        this.ball = type;
+        float scale = 1.5f * stage;
+        transform.localScale = scale * new Vector3(1, 1, 1);
+        sr.sprite = ballSprites[stage];
+    }
+
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
@@ -52,8 +71,9 @@ public class Merge : MonoBehaviour
             var ball2 = collision.gameObject.GetComponent<Merge>().ball;
             //Debug.Log(ball1 + " is touching " + ball2);
             if (ball2 == ball1)
-            { 
-                UpgradeBall();
+            {
+                //UpgradeBall();
+                SetBallStage((int)ball + 1);
 
                 Destroy(collision.gameObject);
             }

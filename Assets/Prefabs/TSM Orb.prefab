@@ -113,17 +113,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Merge
   ball: 0
   ballSprites:
-  - {fileID: -1309055435648660508, guid: 39273b6e8464c9b4982dfe9b92f1d9ef, type: 3}
-  - {fileID: 645663941, guid: 39273b6e8464c9b4982dfe9b92f1d9ef, type: 3}
-  - {fileID: -2079055574, guid: 39273b6e8464c9b4982dfe9b92f1d9ef, type: 3}
-  - {fileID: -2098172078, guid: 39273b6e8464c9b4982dfe9b92f1d9ef, type: 3}
-  - {fileID: 1969948038, guid: 39273b6e8464c9b4982dfe9b92f1d9ef, type: 3}
-  - {fileID: 1070035578, guid: 39273b6e8464c9b4982dfe9b92f1d9ef, type: 3}
-  - {fileID: -2062171771, guid: 39273b6e8464c9b4982dfe9b92f1d9ef, type: 3}
-  - {fileID: 1820016886, guid: 39273b6e8464c9b4982dfe9b92f1d9ef, type: 3}
-  - {fileID: 1499141644, guid: 39273b6e8464c9b4982dfe9b92f1d9ef, type: 3}
-  - {fileID: 512652063, guid: 39273b6e8464c9b4982dfe9b92f1d9ef, type: 3}
-  - {fileID: 2117756893, guid: 39273b6e8464c9b4982dfe9b92f1d9ef, type: 3}
+  - {fileID: -1309055435648660508, guid: 229b38900634664409e67d7674572fd6, type: 3}
+  - {fileID: -1980653219, guid: 229b38900634664409e67d7674572fd6, type: 3}
+  - {fileID: -675757617, guid: 229b38900634664409e67d7674572fd6, type: 3}
+  - {fileID: 1651643449, guid: 229b38900634664409e67d7674572fd6, type: 3}
+  - {fileID: 1995984367, guid: 229b38900634664409e67d7674572fd6, type: 3}
+  - {fileID: 1995984367, guid: 229b38900634664409e67d7674572fd6, type: 3}
+  - {fileID: 1870332620, guid: 229b38900634664409e67d7674572fd6, type: 3}
+  - {fileID: 1654101059, guid: 229b38900634664409e67d7674572fd6, type: 3}
+  - {fileID: -1560673734, guid: 229b38900634664409e67d7674572fd6, type: 3}
+  - {fileID: 1264057571, guid: 229b38900634664409e67d7674572fd6, type: 3}
+  - {fileID: -1252980658, guid: 229b38900634664409e67d7674572fd6, type: 3}
 --- !u!58 &2513593226161190644
 CircleCollider2D:
   m_ObjectHideFlags: 0
