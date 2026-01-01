@@ -137,7 +137,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ffefb2afdfca044459815770766c4e9b
+      spriteID: e3f02e4523fe28c4a85d9ac7df79f5f5
       internalID: 860054432
       vertices: []
       indices: 
@@ -145,6 +145,50 @@ TextureImporter:
       weights: []
     - serializedVersion: 2
       name: stage-bg element_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e982375c7a3c7540acdffa73e0c490b
+      internalID: 1490547838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stage-bg element_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e89c1c64af59b5f449ee19133d4862ef
+      internalID: 1902680214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stage-bg element_4
       rect:
         serializedVersion: 2
         x: 0
@@ -159,14 +203,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a0af257e0d6b60f428d625d06fb45c95
-      internalID: 1490547838
+      spriteID: 8627e750730dacc41a1c8a11a6a74229
+      internalID: -1729187796
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: stage-bg element_3
+      name: stage-bg element_5
       rect:
         serializedVersion: 2
         x: 32
@@ -181,14 +225,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 386a3587323aa664c81797cdecaabdb5
-      internalID: 1902680214
+      spriteID: 43a96b5e1a4080f438fe13b1a65c0040
+      internalID: -1009943357
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: stage-bg element_4
+      name: stage-bg element_6
       rect:
         serializedVersion: 2
         x: 64
@@ -203,8 +247,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 62965f31af925fe4982e48f258dc14d5
-      internalID: -1729187796
+      spriteID: 38d6460315f555246ae23cabcbad9b3f
+      internalID: -202754526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stage-bg element_7
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54e5dc9b2ebbf1a4ba43a30a5cedad61
+      internalID: -1032210823
       vertices: []
       indices: 
       edges: []
@@ -230,6 +296,9 @@ TextureImporter:
       stage-bg element_2: 1490547838
       stage-bg element_3: 1902680214
       stage-bg element_4: -1729187796
+      stage-bg element_5: -1009943357
+      stage-bg element_6: -202754526
+      stage-bg element_7: -1032210823
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

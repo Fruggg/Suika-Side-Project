@@ -387,6 +387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   offset: {x: 0, y: 0, z: 0}
+  bonusOffset: -1
   cap: 1.2
   stepVal: 0.4
 --- !u!483693784 &808142029
@@ -6166,24 +6167,24 @@ Tilemap:
   - m_RefCount: 205
     m_Data: {fileID: 11400000, guid: e4e989c836a256e4a8568588a0386b41, type: 2}
   - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: cdb42898b6a301a46ab50e68caa4ee54, type: 2}
-  - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 8b9024188fcfdda42920180fd585a815, type: 2}
   - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: a142eb2e1b57ad74a86dec640ad92af5, type: 2}
+    m_Data: {fileID: 11400000, guid: c917b0d5b3dbac24a8756c74f754c8aa, type: 2}
   - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: dd92997240aab1b489b731038578d9d6, type: 2}
+    m_Data: {fileID: 11400000, guid: ec3f59554c37c3c4683053d35da0d418, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: a142eb2e1b57ad74a86dec640ad92af5, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 205
     m_Data: {fileID: 8799728352278202124, guid: 5b039e0317ece7d4288f3c1bfd5481be, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: 1490547838, guid: 5b039e0317ece7d4288f3c1bfd5481be, type: 3}
-  - m_RefCount: 1
     m_Data: {fileID: 860054432, guid: 5b039e0317ece7d4288f3c1bfd5481be, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: -1729187796, guid: 5b039e0317ece7d4288f3c1bfd5481be, type: 3}
+    m_Data: {fileID: -1032210823, guid: 5b039e0317ece7d4288f3c1bfd5481be, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: 1902680214, guid: 5b039e0317ece7d4288f3c1bfd5481be, type: 3}
+    m_Data: {fileID: -1009943357, guid: 5b039e0317ece7d4288f3c1bfd5481be, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: -1729187796, guid: 5b039e0317ece7d4288f3c1bfd5481be, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 209
     m_Data:
@@ -6206,6 +6207,12 @@ Tilemap:
   m_TileColorArray:
   - m_RefCount: 209
     m_Data: {r: 1, g: 1, b: 1, a: 1}
+  - m_RefCount: 0
+    m_Data: {r: 1.67e-43, g: 1.67e-43, b: 1.67e-43, a: 1.67e-43}
+  - m_RefCount: 0
+    m_Data: {r: 1.67e-43, g: 1.67e-43, b: 1.67e-43, a: 1.67e-43}
+  - m_RefCount: 0
+    m_Data: {r: 1.67e-43, g: 1.67e-43, b: 1.67e-43, a: 1.67e-43}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
