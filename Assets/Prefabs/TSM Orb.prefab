@@ -98,7 +98,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 0.3
 --- !u!114 &2965076584981289423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,7 +112,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Merge
   ball: 0
-  ballSprites: []
+  ballSprites:
+  - {fileID: -1309055435648660508, guid: 39273b6e8464c9b4982dfe9b92f1d9ef, type: 3}
+  - {fileID: 645663941, guid: 39273b6e8464c9b4982dfe9b92f1d9ef, type: 3}
+  - {fileID: -2079055574, guid: 39273b6e8464c9b4982dfe9b92f1d9ef, type: 3}
+  - {fileID: -2098172078, guid: 39273b6e8464c9b4982dfe9b92f1d9ef, type: 3}
+  - {fileID: 1969948038, guid: 39273b6e8464c9b4982dfe9b92f1d9ef, type: 3}
+  - {fileID: 1070035578, guid: 39273b6e8464c9b4982dfe9b92f1d9ef, type: 3}
+  - {fileID: -2062171771, guid: 39273b6e8464c9b4982dfe9b92f1d9ef, type: 3}
+  - {fileID: 1820016886, guid: 39273b6e8464c9b4982dfe9b92f1d9ef, type: 3}
+  - {fileID: 1499141644, guid: 39273b6e8464c9b4982dfe9b92f1d9ef, type: 3}
+  - {fileID: 512652063, guid: 39273b6e8464c9b4982dfe9b92f1d9ef, type: 3}
+  - {fileID: 2117756893, guid: 39273b6e8464c9b4982dfe9b92f1d9ef, type: 3}
 --- !u!58 &2513593226161190644
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -148,7 +159,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.6
+  m_Radius: 0.0001
 --- !u!212 &6099857623962829159
 SpriteRenderer:
   serializedVersion: 2
