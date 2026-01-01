@@ -47,12 +47,14 @@ public class Merge : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ball"))
         {
+
             var ball1 = this.ball;
             var ball2 = collision.gameObject.GetComponent<Merge>().ball;
             //Debug.Log(ball1 + " is touching " + ball2);
             if (ball2 == ball1)
             { 
                 UpgradeBall();
+
                 Destroy(collision.gameObject);
             }
         }
