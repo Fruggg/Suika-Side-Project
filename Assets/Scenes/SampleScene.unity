@@ -3985,6 +3985,7 @@ GameObject:
   - component: {fileID: 1065869142}
   - component: {fileID: 1065869141}
   - component: {fileID: 1065869143}
+  - component: {fileID: 1065869144}
   m_Layer: 0
   m_Name: orb_ejector
   m_TagString: Untagged
@@ -4078,8 +4079,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9ee180c159b99f43a42d95468cadf25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnerFollowCursor
-  bound1: -5
-  bound2: 5
+  bound1: -6
+  bound2: 6
+--- !u!114 &1065869144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065869140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c1e7acd9b5ed2c418ebdcef5dde1b1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnOnClick
+  prefabToSpawn: {fileID: 7861869500680500605, guid: 913b1638b72058e4a9d14c094b18725e, type: 3}
+  cooldownTime: 2
+  timeSinceLastSpawn: 0
+  canSpawn: 1
 --- !u!1 &1821366858
 GameObject:
   m_ObjectHideFlags: 0
@@ -4091,6 +4108,7 @@ GameObject:
   - component: {fileID: 1821366859}
   - component: {fileID: 1821366861}
   - component: {fileID: 1821366860}
+  - component: {fileID: 1821366862}
   m_Layer: 0
   m_Name: Main-Tilemap
   m_TagString: Untagged
@@ -6343,6 +6361,44 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!19719996 &1821366862
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1821366858}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0
+  m_UseDelaunayMesh: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

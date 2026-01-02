@@ -23,11 +23,12 @@ public class SpawnOnClick : MonoBehaviour
 
     void Update()
     {
+        CheckCooldown();
         timeSinceLastSpawn += Time.deltaTime;
         if (Input.GetMouseButtonDown(0) && canSpawn == true)
         {
 
-            CheckCooldown();
+            
             int rn = Random.Range(0, 3);
 
             var ballInstance = Instantiate(prefabToSpawn, transform.position, Quaternion.identity);
