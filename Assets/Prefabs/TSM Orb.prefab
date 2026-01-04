@@ -14,10 +14,11 @@ GameObject:
   - component: {fileID: 2965076584981289423}
   - component: {fileID: 2513593226161190644}
   - component: {fileID: 6099857623962829159}
+  - component: {fileID: 3928319060882915983}
   m_Layer: 0
   m_Name: TSM Orb
   m_TagString: Ball
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -49,7 +50,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0
+  m_LinearDamping: 0.02
   m_AngularDamping: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
@@ -61,7 +62,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!58 &6518814161564086304
 CircleCollider2D:
@@ -73,7 +74,7 @@ CircleCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: f3d331de95da53f4abad3bb1e3fd481c, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -111,6 +112,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cebd168746bba774ab3365bdbb79e89a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Merge
+  speedReq: 600
+  defaultScale: 1.5
+  killStage: 6
+  deathExplosion: {fileID: 3995280466757269240, guid: 5454d25fd1992cb459039af6d85b059e, type: 3}
   ball: 0
   ballSprites:
   - {fileID: -1309055435648660508, guid: 229b38900634664409e67d7674572fd6, type: 3}
@@ -124,6 +129,11 @@ MonoBehaviour:
   - {fileID: -1560673734, guid: 229b38900634664409e67d7674572fd6, type: 3}
   - {fileID: 1264057571, guid: 229b38900634664409e67d7674572fd6, type: 3}
   - {fileID: -1252980658, guid: 229b38900634664409e67d7674572fd6, type: 3}
+  OnMerge:
+    m_PersistentCalls:
+      m_Calls: []
+  sr: {fileID: 6099857623962829159}
+  rb: {fileID: 7307817920950362808}
 --- !u!58 &2513593226161190644
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -219,3 +229,30 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3928319060882915983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7861869500680500605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d5aac68e710ace4b9e5e68e5aa8a99a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Splasher
+  splashGameObjects:
+  - {fileID: 1447751961994365831, guid: 63aa36f9534593e46ad39133dfebc503, type: 3}
+  - {fileID: 1447751961994365831, guid: 28dd0e92226fe7c4c97776c8cb501f48, type: 3}
+  colorSplotches:
+  - palette:
+    - {r: 0.9245283, g: 0.78161776, b: 0.22241008, a: 1}
+  - palette:
+    - {r: 0.8490566, g: 0.26032397, b: 0.30584455, a: 1}
+  rb: {fileID: 7307817920950362808}
+  squareCollisionTiers:
+  - 9999999
+  - 1500
+  OnSplash:
+    m_PersistentCalls:
+      m_Calls: []

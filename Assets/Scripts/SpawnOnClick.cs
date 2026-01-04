@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using static Merge;
 
 public class SpawnOnClick : MonoBehaviour
 {
@@ -10,32 +11,42 @@ public class SpawnOnClick : MonoBehaviour
     public float cooldownTime = 10.0f;
     public float timeSinceLastSpawn;
     public bool canSpawn = true;
+    [SerializeField] bool auto = false; // If it runs automatically or not
+    [SerializeField] UIManager uiManager;
+    [SerializeField] int spawningRange = 3;
 
-    public bool CheckCooldown() 
-    { 
-        if (timeSinceLastSpawn >= cooldownTime)
-        {
-            canSpawn = true;
-            
-        }
-        return canSpawn;
+    // public access for UI - this is bad.
+    public BallType nextToSpawn = BallType.Wheatley;
+    private bool WantsToSpawn()
+    {
+        // Always send it during auto
+        if (auto) { return true; }
+
+        // If mot auto it does this
+        return Input.GetMouseButtonDown(0);
     }
 
+    // Public because we're gonna need it for our rendering class
+    public BallType NextBall()
+     {
+        return nextToSpawn;
+     }
     void Update()
     {
         CheckCooldown();
         timeSinceLastSpawn += Time.deltaTime;
-        if (Input.GetMouseButtonDown(0) && canSpawn == true)
+        if (timeSinceLastSpawn >= cooldownTime) { canSpawn = true; }
+        if (WantsToSpawn() && canSpawn == true)
         {
-
-            
-            int rn = Random.Range(0, 3);
+            int rn = (int)NextBall(); 
 
             var ballInstance = Instantiate(prefabToSpawn, transform.position, Quaternion.identity);
+            Merge instanceBallScript = ballInstance.GetComponent<Merge>();
             canSpawn = false;
             timeSinceLastSpawn = 0f;
-            ballInstance.GetComponent<Merge>().SetBallStage(rn);
-            
+            instanceBallScript.SetBallStage(rn);
+            instanceBallScript.OnMerge.AddListener(uiManager.SetScoreAndDisplay);
+            nextToSpawn = (BallType)Random.Range(0, spawningRange);
         }
     }
 }
