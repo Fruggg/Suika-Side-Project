@@ -81,7 +81,7 @@ public class Merge : MonoBehaviour
     public void SetBallStage(int stage)
     {
         timerTillDeath = 0f;
-        deathTime += 5f;
+        deathTime = (stage * 5) + 5;
         rb.mass = Mathf.Pow (2, stage);
         if(stage == killStage)
         {

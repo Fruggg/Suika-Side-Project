@@ -153,7 +153,7 @@ public class basicPlayerController : MonoBehaviour
        
         // Show aiming
         float angle =  180/3.14f * Mathf.Atan2(r3.y, r3.x);
-        Debug.Log($"angle : {angle}");
+        //Debug.Log($"angle : {angle}");
         
         //bat.GetComponentInChildren<SpriteRenderer>().flipY = (Mathf.Abs(angle )>= 90);
 
