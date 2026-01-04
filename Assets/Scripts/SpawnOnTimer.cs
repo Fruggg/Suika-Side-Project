@@ -28,16 +28,16 @@ public class SpawnOnClick : MonoBehaviour
 
     // Public because we're gonna need it for our rendering class
     public BallType NextBall()
-     {
+    {
         return nextToSpawn;
-     }
+    }
     void Update()
     {
         timeSinceLastSpawn += Time.deltaTime;
         if (timeSinceLastSpawn >= cooldownTime) { canSpawn = true; }
         if (WantsToSpawn() && canSpawn == true)
         {
-            int rn = (int)NextBall(); 
+            int rn = (int)NextBall();
 
             var ballInstance = Instantiate(prefabToSpawn, transform.position, Quaternion.identity);
             Merge instanceBallScript = ballInstance.GetComponent<Merge>();
@@ -45,7 +45,7 @@ public class SpawnOnClick : MonoBehaviour
             timeSinceLastSpawn = 0f;
             instanceBallScript.SetBallStage(rn);
             instanceBallScript.OnMerge.AddListener(uiManager.SetScoreAndDisplay);
-            instanceBallScript.OnDeath.AddListener(uiManager.SetDeaths);
+            //instanceBallScript.OnDeath.AddListener(uiManager.SetDeathAmount);
             nextToSpawn = (BallType)Random.Range(0, spawningRange);
         }
     }
