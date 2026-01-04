@@ -10,6 +10,8 @@ public class Merge : MonoBehaviour
     [SerializeField] float defaultScale = 1.5f;
     [SerializeField] int killStage;
     [SerializeField] GameObject deathExplosion;
+    private float timerTillDeath;
+    [SerializeField] private float deathTime = 10f;
     public enum BallType
     {
         Wheatley,
@@ -28,6 +30,7 @@ public class Merge : MonoBehaviour
     public List<Sprite> ballSprites;
     // use this event for the scoring UI logic
     public UnityEvent<int> OnMerge = new UnityEvent<int>();
+    public UnityEvent<int> OnDeath = new UnityEvent<int>();
     private Transform Transform;
     
     [SerializeField] private SpriteRenderer sr;
@@ -47,6 +50,23 @@ public class Merge : MonoBehaviour
         var ballIndex = (int)ball;
         float scale = ballIndex != 0 ? defaultScale * ballIndex : defaultScale;
         transform.localScale = scale * new Vector3(1, 1, 1);
+        timerTillDeath += Time.deltaTime;
+
+        if (timerTillDeath >= deathTime)
+        {
+            if (ballIndex < killStage)
+            {
+                Destroy(gameObject);
+                timerTillDeath = 0f;
+                OnDeath?.Invoke((int)ball);
+            }
+            else
+            {
+                GameObject splash = deathExplosion;
+                var instantiatedSplash = Instantiate(splash, transform.position, Quaternion.identity);
+                Destroy(gameObject);
+            }
+        }
     }
     
     //public void UpgradeBall()
@@ -60,6 +80,8 @@ public class Merge : MonoBehaviour
 
     public void SetBallStage(int stage)
     {
+        timerTillDeath = 0f;
+        deathTime += 5f;
         rb.mass = Mathf.Pow (2, stage);
         if(stage == killStage)
         {

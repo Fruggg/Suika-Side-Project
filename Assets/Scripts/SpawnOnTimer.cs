@@ -33,7 +33,6 @@ public class SpawnOnClick : MonoBehaviour
      }
     void Update()
     {
-        CheckCooldown();
         timeSinceLastSpawn += Time.deltaTime;
         if (timeSinceLastSpawn >= cooldownTime) { canSpawn = true; }
         if (WantsToSpawn() && canSpawn == true)
@@ -46,6 +45,7 @@ public class SpawnOnClick : MonoBehaviour
             timeSinceLastSpawn = 0f;
             instanceBallScript.SetBallStage(rn);
             instanceBallScript.OnMerge.AddListener(uiManager.SetScoreAndDisplay);
+            instanceBallScript.OnDeath.AddListener(uiManager.SetDeaths);
             nextToSpawn = (BallType)Random.Range(0, spawningRange);
         }
     }

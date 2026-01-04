@@ -7,7 +7,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] SpawnOnClick spawner;
 
-    [SerializeField] int score = 0;
+    public int score = 0;
+    public int deaths = 0;
     public void SetScoreAndDisplay(int addedScore)
     {
         score += addedScore;
@@ -17,6 +18,12 @@ public class UIManager : MonoBehaviour
     {
         
         nextupText.text = $"next: \n{next}";
+    }
+
+    public void SetDeaths(int deaths) 
+    { 
+        deaths += 1;
+
     }
 
     private void Update()

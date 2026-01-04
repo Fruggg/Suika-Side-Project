@@ -218,6 +218,7 @@ MonoBehaviour:
   scoreText: {fileID: 1561263262}
   spawner: {fileID: 1927815639}
   score: 0
+  deaths: 0
 --- !u!1 &119129862
 GameObject:
   m_ObjectHideFlags: 0
@@ -8012,6 +8013,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74d9fb12d0c8a77409caebba6c01ba9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+--- !u!114 &1655035481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655035470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce44081b8a5b1794ba44054c10ca24aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WinLoseCons
+  victory: 0
+  defeat: 0
+  uiManager: {fileID: 0}
+  victoryScore: 1000
+  maxDeaths: 20
 --- !u!1 &1677300697
 GameObject:
   m_ObjectHideFlags: 0
@@ -12695,6 +12713,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 280362399743403855, guid: eb1fb0e50707a8345ad054082f1d67b7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1655035477}
+    - targetCorrespondingSourceObject: {fileID: 280362399743403855, guid: eb1fb0e50707a8345ad054082f1d67b7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1655035481}
   m_SourcePrefab: {fileID: 100100000, guid: eb1fb0e50707a8345ad054082f1d67b7, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
