@@ -8,9 +8,12 @@ public class LeekHitbox : MonoBehaviour
     [SerializeField] BoxCollider2D bathitbox;
     [SerializeField] Animator batAnimation;
 
+
     bool batCharging = false;
     [SerializeField] private float currentBatCharge;
     PlayerControls controls;
+    [SerializeField] Rigidbody2D player;
+    [SerializeField] basicPlayerController playerController;
 
     [SerializeField] Animator flashAnimator;
 
@@ -43,7 +46,9 @@ public class LeekHitbox : MonoBehaviour
             Debug.Log("Leekin my shit!!! balls");
             Vector2 direction = new Vector2(transform.up.y, -transform.up.x);
             float chargeMultiplier = Mathf.Min(currentBatCharge, 1);
-            collision.gameObject.GetComponentInChildren<Rigidbody2D>().AddForce(chargeMultiplier * direction * strikeForce);
+            float speedMult = 0.01f *  player.linearVelocity.sqrMagnitude; 
+            collision.gameObject.GetComponentInChildren<Rigidbody2D>().AddForce(chargeMultiplier * direction * strikeForce * ( 1 + speedMult));
+            playerController.RestoreDash();
         }
     }
     private void Update()

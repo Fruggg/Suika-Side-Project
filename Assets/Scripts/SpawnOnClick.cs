@@ -13,9 +13,10 @@ public class SpawnOnClick : MonoBehaviour
     public bool canSpawn = true;
     [SerializeField] bool auto = false; // If it runs automatically or not
     [SerializeField] UIManager uiManager;
+    [SerializeField] int spawningRange = 3;
 
     // public access for UI - this is bad.
-    public BallType nextToSpawn;
+    public BallType nextToSpawn = BallType.Wheatley;
     private bool WantsToSpawn()
     {
         // Always send it during auto
@@ -44,7 +45,7 @@ public class SpawnOnClick : MonoBehaviour
             timeSinceLastSpawn = 0f;
             instanceBallScript.SetBallStage(rn);
             instanceBallScript.OnMerge.AddListener(uiManager.SetScoreAndDisplay);
-            nextToSpawn = (BallType)Random.Range(0, 3);
+            nextToSpawn = (BallType)Random.Range(0, spawningRange);
         }
     }
 }

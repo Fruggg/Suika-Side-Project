@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ball
   - Ground
+  - Ejector
   layers:
   - Default
   - TransparentFX
@@ -13,7 +14,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Ground
   - 
   - 
   - 
@@ -42,6 +43,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Priority
+    uniqueID: 2739738041
     locked: 0
   m_RenderingLayers:
   - Default

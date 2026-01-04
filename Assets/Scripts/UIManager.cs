@@ -21,7 +21,6 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-
         //this is such bad practice
         SetNextupDisplay(spawner.nextToSpawn.ToString());
     }

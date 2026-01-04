@@ -1,23 +1,30 @@
+using System;
 using System.Collections;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class basicPlayerController : MonoBehaviour
 {
+    [SerializeField] AnimationCurve dashCurve;
+    [SerializeField] int maxDashCharges = 3;
+    [SerializeField] float groundTouchDistance = 2;
     [SerializeField] float moveSpeed;
     [SerializeField] float dampingRate;
     [SerializeField] float maxHorizontalSpeed;
-
     [SerializeField] float maxJumpCooldown = 0.25f;
     [SerializeField] float dashPower;
     [SerializeField] float jumpPower;
-    [SerializeField] string groundtag;
+    [SerializeField] HeartDisplayManager dashDisplay;
+    [SerializeField] Transform groundCheck;
     [SerializeField] GameObject bat;
     [SerializeField] Rigidbody2D rb;
     PlayerControls controls;
     [SerializeField] Transform arrow;
 
+    [SerializeField] LayerMask groundLayerMask;
     private float currentJumpCooldown;
+    [SerializeField] private bool canJump = true;
+    private int currentDashAmount;
+    string dashCoName = nameof(DashCoroutine);
 
     /**
        * Controls are crazy simple:
@@ -29,22 +36,48 @@ public class basicPlayerController : MonoBehaviour
       **/
 
     // Control variables
-    [SerializeField] float groundTouchDistance = 2;
+
     Vector2 r3 = Vector2.zero;
     Vector2 l3 = Vector2.zero;
     float l3Float = 0;
 
-    [SerializeField] int maxDashCharges = 3;
 
-    private void Dash()
 
+    IEnumerator DashCoroutine(Vector2 direction)
     {
-        bool canDash = true;
+
+        float cachedGravity = rb.gravityScale;
+        //float cachedVel = 0.25f *  Mathf.Min(15f, rb.linearVelocity.magnitude);
+        float slices = 35;
+        float duration = 0.15f;
+        for (int i = 0; i < slices; i++)
+        {
+        rb.gravityScale = 0;
+        float adjust = 1 / slices;
+        rb.linearVelocity =  direction * dashPower * ( 0.25f + dashCurve.Evaluate(i * adjust));
+        yield return new WaitForSeconds(duration/slices);
+
+        }
+        rb.gravityScale = cachedGravity;
+        yield return null;
+    }
+    private void Dash()
+    {
+        bool canDash = (currentDashAmount != 0);
         if (canDash)
         {
             Vector2 normAim = r3.normalized;
-            rb.AddForce(normAim * dashPower);
+
+            //First dash version
+            //rb.AddForce(normAim * dashPower);
+
+            //second dash version
+            StopCoroutine(dashCoName);
+            StartCoroutine(dashCoName, normAim);
+            
             Debug.Log("Dashed!");
+            --currentDashAmount;
+            dashDisplay.SetCount(currentDashAmount);
         }
     }
     
@@ -86,30 +119,36 @@ public class basicPlayerController : MonoBehaviour
     }
     private bool IsTouchingGround()
     {
-        return Physics2D.Raycast(transform.position, Vector2.down, groundTouchDistance);
+
+        return Physics2D.OverlapCircle(groundCheck.position, groundTouchDistance, groundLayerMask);
+
     }
     private void Update()
-    {
-        // Movement
-        rb.position += Vector2.up * 2E-3f;
+    {   rb.position += Vector2.up * 2E-3f;
         if(rb.linearVelocityX/l3.x < maxHorizontalSpeed){ rb.linearVelocityX += (Mathf.RoundToInt(l3.x) * moveSpeed); }
         // If we aren't moving or moving in the wrong direction
         if ((Mathf.RoundToInt(l3.x) == 0) || (rb.linearVelocityX / l3.x) < 0) 
         { 
             rb.linearVelocityX -=  Mathf.Sign(rb.linearVelocityX) * dampingRate * Time.deltaTime ; 
         }
-        rb.linearVelocityY -= 9.81f * Time.deltaTime;
-        currentJumpCooldown -= Time.deltaTime;
+        
+      
 
-        if(IsTouchingGround() && currentJumpCooldown <= 0)
+        if(IsTouchingGround())
         {
-            Debug.Log("touching ground");
-            if (Mathf.RoundToInt(l3.y) > 0) 
-            { 
-                rb.linearVelocityY = jumpPower;
-                currentJumpCooldown = maxJumpCooldown;
-            }
-        }
+            currentJumpCooldown -= Time.deltaTime;
+            currentDashAmount = maxDashCharges;
+            canJump = true;
+            dashDisplay.SetCount(currentDashAmount);
+            if (currentJumpCooldown <= 0 && canJump)
+            {
+                if (Mathf.RoundToInt(l3.y) > 0)
+                {
+                    rb.linearVelocityY = jumpPower;
+                    currentJumpCooldown = maxJumpCooldown;
+                    canJump = false;
+                }
+            } }
 
        
         // Show aiming
@@ -120,7 +159,18 @@ public class basicPlayerController : MonoBehaviour
 
 
         bat.transform.SetLocalPositionAndRotation(r3.normalized * 0.25f, Quaternion.Euler(0, 0, angle));
+        arrow.transform.SetLocalPositionAndRotation(r3.normalized * 0.25f, Quaternion.Euler(0, 0, angle - 90));
         
 
+    }
+
+    internal void RestoreDash()
+    {
+      if (currentDashAmount < maxDashCharges )
+        {
+            ++currentDashAmount;
+            dashDisplay.SetCount(currentDashAmount);
+            
+        }
     }
 }

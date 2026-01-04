@@ -13,8 +13,9 @@ public class SpawnerFollowCursor : MonoBehaviour
 
         if (direction > 0 && (transform.position.x >= bound2)) { direction = -1; }
         if (direction < 0 && (transform.position.x <= bound1)) { direction = 1; }
-        transform.position += Vector3.right * autonMoveSpeed * direction; // = new Vector2(Mathf.Lerp(transform.position.x, direction.x, moveSpeed), transform.position.y);
-
+        transform.position += Time.deltaTime * Vector3.right * autonMoveSpeed * direction; // = new Vector2(Mathf.Lerp(transform.position.x, direction.x, moveSpeed), transform.position.y);
+        
+        
     }
     void Update()
     {
