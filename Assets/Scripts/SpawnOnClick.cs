@@ -33,6 +33,7 @@ public class SpawnOnClick : MonoBehaviour
      }
     void Update()
     {
+        CheckCooldown();
         timeSinceLastSpawn += Time.deltaTime;
         if (timeSinceLastSpawn >= cooldownTime) { canSpawn = true; }
         if (WantsToSpawn() && canSpawn == true)

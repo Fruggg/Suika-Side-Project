@@ -4493,7 +4493,25 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c1e7acd9b5ed2c418ebdcef5dde1b1e, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnerFollowCursor
+  bound1: -6
+  bound2: 6
+--- !u!114 &1065869144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065869140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c1e7acd9b5ed2c418ebdcef5dde1b1e, type: 3}
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnOnClick
+  prefabToSpawn: {fileID: 7861869500680500605, guid: 913b1638b72058e4a9d14c094b18725e, type: 3}
+  cooldownTime: 2
+  timeSinceLastSpawn: 0
+  canSpawn: 1
 --- !u!1 &1821366858
 GameObject:
   m_ObjectHideFlags: 0
