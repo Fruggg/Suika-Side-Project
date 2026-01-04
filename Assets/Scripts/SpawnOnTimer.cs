@@ -45,7 +45,7 @@ public class SpawnOnClick : MonoBehaviour
             timeSinceLastSpawn = 0f;
             instanceBallScript.SetBallStage(rn);
             instanceBallScript.OnMerge.AddListener(uiManager.SetScoreAndDisplay);
-            //instanceBallScript.OnDeath.AddListener(uiManager.SetDeathAmount);
+            instanceBallScript.OnDeath.AddListener(uiManager.SetScoreAndDisplay);
             nextToSpawn = (BallType)Random.Range(0, spawningRange);
         }
     }
