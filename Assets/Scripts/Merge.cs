@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,6 +13,7 @@ public class Merge : MonoBehaviour
     [SerializeField] GameObject deathExplosion;
     private float timerTillDeath;
     [SerializeField] private float deathTime = 10f;
+    [SerializeField] GameObject textTimer;
     public enum BallType
     {
         Wheatley,
@@ -47,6 +49,8 @@ public class Merge : MonoBehaviour
 
     public void Update()
     {
+        var uiTimerTillDeath = (int)(deathTime - timerTillDeath + 1);
+        textTimer.GetComponent<TextMesh>().text = uiTimerTillDeath.ToString();
         var ballIndex = (int)ball;
         float scale = ballIndex != 0 ? defaultScale * ballIndex : defaultScale;
         transform.localScale = scale * new Vector3(1, 1, 1);
@@ -81,7 +85,7 @@ public class Merge : MonoBehaviour
     public void SetBallStage(int stage)
     {
         timerTillDeath = 0f;
-        deathTime = (stage * 5) + 5;
+        deathTime = (stage * 5) + 10;
         rb.mass = Mathf.Pow (2, stage);
         if(stage == killStage)
         {
