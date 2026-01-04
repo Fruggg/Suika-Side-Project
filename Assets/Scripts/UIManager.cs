@@ -22,9 +22,8 @@ public class UIManager : MonoBehaviour
 
     public void SetDeaths(int deaths) 
     { 
-        Debug.Log("Death registered in UIManager");
-        deaths += 1;
-        Debug.Log($"Total Deaths: {deaths}");
+        this.deaths += 1;
+
 
     }
 
