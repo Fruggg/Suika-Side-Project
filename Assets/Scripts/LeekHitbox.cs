@@ -7,8 +7,9 @@ public class LeekHitbox : MonoBehaviour
     [SerializeField] float bathitboxDuration;
     [SerializeField] BoxCollider2D bathitbox;
     [SerializeField] Animator batAnimation;
-
-
+    [SerializeField] float maxBat = 1.5f;
+    [SerializeField] float homerunReq;
+    [SerializeField] GameObject HomeRunSplash;
     bool batCharging = false;
     [SerializeField] private float currentBatCharge;
     PlayerControls controls;
@@ -32,6 +33,10 @@ public class LeekHitbox : MonoBehaviour
         batAnimation.SetBool("Charging", true);
     }
 
+    private void CallStopTime()
+    {
+        FindFirstObjectByType<TimeStopper>().StopTime(0.15f);
+    }
 
     private void SwingBat()
     {
@@ -43,11 +48,19 @@ public class LeekHitbox : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ball"))
         {
-            Debug.Log("Leekin my shit!!! balls");
             Vector2 direction = new Vector2(transform.up.y, -transform.up.x);
-            float chargeMultiplier = Mathf.Min(currentBatCharge, 1);
-            float speedMult = 0.01f *  player.linearVelocity.sqrMagnitude; 
-            collision.gameObject.GetComponentInChildren<Rigidbody2D>().AddForce(chargeMultiplier * direction * strikeForce * ( 1 + speedMult));
+            float chargeMultiplier = Mathf.Min(currentBatCharge, maxBat);
+            float speedMult = 0.005f *  player.linearVelocity.sqrMagnitude;
+            float force = chargeMultiplier * strikeForce * (1 + speedMult);
+            bool homeRun = force >= homerunReq;
+            if (homeRun)
+            {
+                //sfx.play(homerun)
+                GameObject splash = HomeRunSplash;
+                var instantiatedSplash = Instantiate(splash, collision.attachedRigidbody.position, Quaternion.identity);
+                CallStopTime();
+            }
+            collision.gameObject.GetComponentInChildren<Rigidbody2D>().AddForce(direction * force);
             playerController.RestoreDash();
         }
     }
@@ -57,7 +70,7 @@ public class LeekHitbox : MonoBehaviour
         if (batCharging) { currentBatCharge += Time.deltaTime; }
 
         // Bat flash
-        if (currentBatCharge >= 0.99f && currentBatCharge <= 1.01f) { flashAnimator.SetTrigger("Flash"); }
+        if (currentBatCharge >= maxBat - 0.01f && currentBatCharge <= maxBat + 0.01f) { flashAnimator.SetTrigger("Flash"); }
 
     }
     private void Awake()

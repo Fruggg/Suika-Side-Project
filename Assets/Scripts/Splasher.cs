@@ -20,7 +20,7 @@ public class Splasher : MonoBehaviour
     [SerializeField] Rigidbody2D rb;
     [SerializeField] float[] squareCollisionTiers;
     [SerializeField] UnityEvent OnSplash;
-    float SplashMagnitude()
+    int SplashMagnitude()
     {
         for (int i = squareCollisionTiers.Length - 1; i >= 0; i--)
         {
@@ -32,22 +32,15 @@ public class Splasher : MonoBehaviour
         }
         return 0;
     }
-    private void OnEnable()
-    {
-        OnSplash.AddListener(CallStopTime);
-    }
-    private void CallStopTime()
-    {
-        //FindFirstObjectByType<TimeStopper>().StopTime(0.25f);
-    }
-
+   
     private void OnCollisionEnter2D(Collision2D other)
     {
         //Nothing when collide with player
+        int splashMag = SplashMagnitude();
         if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Ejector")) return;
         foreach (var contact in other.contacts)
         {
-            if (!(SplashMagnitude() >= 1)) return; 
+            if (!(splashMag >= 1)) return; 
             //Vector2 directionOfNormal = contact.point - contact.normal;
 
             //float angle = 180 + 180 / 3.14f * Mathf.Atan2(directionOfNormal.y, directionOfNormal.x);
@@ -71,7 +64,8 @@ public class Splasher : MonoBehaviour
                 }
             }
             instantiatedSplash.GetComponent<SpriteRenderer>().color = color;
-            OnSplash?.Invoke();
+            ;
+           
         }
     }
 }

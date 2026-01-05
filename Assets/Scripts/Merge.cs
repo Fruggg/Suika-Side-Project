@@ -86,7 +86,7 @@ public class Merge : MonoBehaviour
     {
         timerTillDeath = 0f;
         deathTime = (stage * 5) + 10;
-        rb.mass = Mathf.Pow (2, stage);
+        rb.mass = Mathf.Pow (1.5f, stage);
         if(stage == killStage)
         {
             GameObject splash = deathExplosion;

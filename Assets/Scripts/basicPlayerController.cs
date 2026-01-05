@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class basicPlayerController : MonoBehaviour
 {
     [SerializeField] AnimationCurve dashCurve;
+    [SerializeField] AnimationCurve timeCurve;
     [SerializeField] int maxDashCharges = 3;
     [SerializeField] float groundTouchDistance = 2;
     [SerializeField] float moveSpeed;
@@ -17,12 +19,15 @@ public class basicPlayerController : MonoBehaviour
     [SerializeField] Transform groundCheck;
     [SerializeField] GameObject bat;
     [SerializeField] Rigidbody2D rb;
-    PlayerControls controls;
     [SerializeField] Transform arrow;
-
     [SerializeField] LayerMask groundLayerMask;
-    private float currentJumpCooldown;
     [SerializeField] private bool canJump = true;
+
+
+    TimeStopper timeMan;
+
+    PlayerControls controls;
+    private float currentJumpCooldown;
     private int currentDashAmount;
     string dashCoName = nameof(DashCoroutine);
 
@@ -45,20 +50,25 @@ public class basicPlayerController : MonoBehaviour
 
     IEnumerator DashCoroutine(Vector2 direction)
     {
+        // The nonsense to change around time
+        
 
         float cachedGravity = rb.gravityScale;
         //float cachedVel = 0.25f *  Mathf.Min(15f, rb.linearVelocity.magnitude);
         float slices = 35;
-        float duration = 0.15f;
+        float duration = 0.25f;
         for (int i = 0; i < slices; i++)
         {
-        rb.gravityScale = 0;
-        float adjust = 1 / slices;
-        rb.linearVelocity =  direction * dashPower * ( 0.25f + dashCurve.Evaluate(i * adjust));
-        yield return new WaitForSeconds(duration/slices);
+            rb.gravityScale = 0;
+            float adjust = 1 / slices;
+            Time.fixedDeltaTime = 0.02f * Time.timeScale;
+            rb.linearVelocity = (1/Time.timeScale) * direction * dashPower * ( 0.25f + dashCurve.Evaluate(i * adjust));
+            yield return new WaitForSecondsRealtime(duration/slices);
 
         }
         rb.gravityScale = cachedGravity;
+        rb.linearVelocity = Vector2.zero;
+        
         yield return null;
     }
     private void Dash()
@@ -72,6 +82,8 @@ public class basicPlayerController : MonoBehaviour
             //rb.AddForce(normAim * dashPower);
 
             //second dash version
+            timeMan.RequestTimeScale((float)((0.15f)), 0.5f);
+
             StopCoroutine(dashCoName);
             StartCoroutine(dashCoName, normAim);
             
@@ -79,43 +91,6 @@ public class basicPlayerController : MonoBehaviour
             --currentDashAmount;
             dashDisplay.SetCount(currentDashAmount);
         }
-    }
-    
-    private void MoveL3()
-    {
-
-    }
-
-    private void MoveL2()
-    {
-
-    }
-    private void MoveR3()
-    {
-
-    }
-  
-    private void MoveR2()
-    {
-
-    }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
-    {
-        //controls.Player.Move.performed += ctx => l3Float = ctx.ReadValue<float>();
-
-        controls = new PlayerControls();
-        controls.Enable();
-
-        controls.Player.Move.performed += ctx => l3 = ctx.ReadValue<Vector2>();
-        controls.Player.Move.canceled += ctx => l3 = Vector2.zero;
-
-        controls.Player.Aim.performed += ctx => r3 = ctx.ReadValue<Vector2>();
-        controls.Player.Aim.canceled += ctx => r3 = Vector2.zero;
-
-
-        controls.Player.Dash.canceled += ctx => Dash();
-
     }
     private bool IsTouchingGround()
     {
@@ -166,11 +141,32 @@ public class basicPlayerController : MonoBehaviour
 
     internal void RestoreDash()
     {
-      if (currentDashAmount < maxDashCharges )
+        if (currentDashAmount < maxDashCharges)
         {
             ++currentDashAmount;
             dashDisplay.SetCount(currentDashAmount);
-            
+
         }
+    }
+    private void Start()
+    {
+        timeMan = FindAnyObjectByType<TimeStopper>();
+    }
+    void Awake()
+    {
+        //controls.Player.Move.performed += ctx => l3Float = ctx.ReadValue<float>();
+
+        controls = new PlayerControls();
+        controls.Enable();
+
+        controls.Player.Move.performed += ctx => l3 = ctx.ReadValue<Vector2>();
+        controls.Player.Move.canceled += ctx => l3 = Vector2.zero;
+
+        controls.Player.Aim.performed += ctx => r3 = ctx.ReadValue<Vector2>();
+        controls.Player.Aim.canceled += ctx => r3 = Vector2.zero;
+
+
+        controls.Player.Dash.canceled += ctx => Dash();
+
     }
 }
