@@ -2,34 +2,41 @@ using System;
 using System.Collections;
 using System.Security.Cryptography;
 using UnityEngine;
+using static AnimationCurveExtensions;
+
+
 
 public class basicPlayerController : MonoBehaviour
 {
-    [SerializeField] AnimationCurve dashCurve;
-    [SerializeField] AnimationCurve timeCurve;
-    [SerializeField] int maxDashCharges = 3;
+    [Header("Ganeral Movement")]
+    [SerializeField] float jumpPower;
     [SerializeField] float groundTouchDistance = 2;
     [SerializeField] float moveSpeed;
     [SerializeField] float dampingRate;
     [SerializeField] float maxHorizontalSpeed;
     [SerializeField] float maxJumpCooldown = 0.25f;
+    [Header("Dash")]
+    [SerializeField] AnimationCurve dashCurve;
+    [SerializeField] int maxDashCharges = 3;
     [SerializeField] float dashPower;
-    [SerializeField] float jumpPower;
+    [SerializeField] float dashDuration;
+    [SerializeField] float dashDistance = -1;
+    [SerializeField] int dashSlices = 35;
+    [Header("Other Objects")]
     [SerializeField] HeartDisplayManager dashDisplay;
     [SerializeField] Transform groundCheck;
     [SerializeField] GameObject bat;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Transform arrow;
     [SerializeField] LayerMask groundLayerMask;
-    [SerializeField] private bool canJump = true;
-
 
     TimeStopper timeMan;
-
     PlayerControls controls;
     private float currentJumpCooldown;
     private int currentDashAmount;
     string dashCoName = nameof(DashCoroutine);
+    private bool canJump = true;
+
 
     /**
        * Controls are crazy simple:
@@ -50,21 +57,20 @@ public class basicPlayerController : MonoBehaviour
 
     IEnumerator DashCoroutine(Vector2 direction)
     {
-        // The nonsense to change around time
+        // Integrate velocity ; 1/2 velocity ^2 times t is distance
+        
         
 
         float cachedGravity = rb.gravityScale;
-        //float cachedVel = 0.25f *  Mathf.Min(15f, rb.linearVelocity.magnitude);
-        float slices = 35;
-        float duration = 0.25f;
-        for (int i = 0; i < slices; i++)
+        float cachedVel = 0.25f * Mathf.Min(15f, rb.linearVelocity.magnitude);
+        for (int i = 0; i < dashSlices; i++)
         {
             rb.gravityScale = 0;
-            float adjust = 1 / slices;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
-            rb.linearVelocity = (1/Time.timeScale) * direction * dashPower * ( 0.25f + dashCurve.Evaluate(i * adjust));
-            yield return new WaitForSecondsRealtime(duration/slices);
-
+            Debug.Log($"{((float)i / dashSlices)} ");
+            float velMag = (1 / Time.timeScale) * dashPower * dashCurve.Evaluate(((float)i / dashSlices));
+            rb.linearVelocity = velMag * direction;
+            yield return new WaitForSecondsRealtime(dashDuration / (float)dashSlices);
         }
         rb.gravityScale = cachedGravity;
         rb.linearVelocity = Vector2.zero;
@@ -77,12 +83,9 @@ public class basicPlayerController : MonoBehaviour
         if (canDash)
         {
             Vector2 normAim = r3.normalized;
-
-            //First dash version
-            //rb.AddForce(normAim * dashPower);
-
-            //second dash version
-            timeMan.RequestTimeScale((float)((0.15f)), 0.5f);
+            
+            // Bullet Time
+            timeMan.RequestTimeScale((float)((0.35f)), dashDuration + 0.1f);
 
             StopCoroutine(dashCoName);
             StartCoroutine(dashCoName, normAim);
@@ -99,15 +102,14 @@ public class basicPlayerController : MonoBehaviour
 
     }
     private void Update()
-    {   rb.position += Vector2.up * 2E-3f;
+    {   
+        rb.position += Vector2.up * 2E-3f;
         if(rb.linearVelocityX/l3.x < maxHorizontalSpeed){ rb.linearVelocityX += (Mathf.RoundToInt(l3.x) * moveSpeed); }
         // If we aren't moving or moving in the wrong direction
         if ((Mathf.RoundToInt(l3.x) == 0) || (rb.linearVelocityX / l3.x) < 0) 
         { 
             rb.linearVelocityX -=  Mathf.Sign(rb.linearVelocityX) * dampingRate * Time.deltaTime ; 
         }
-        
-      
 
         if(IsTouchingGround())
         {
@@ -134,7 +136,7 @@ public class basicPlayerController : MonoBehaviour
 
 
         bat.transform.SetLocalPositionAndRotation(r3.normalized * 0.25f, Quaternion.Euler(0, 0, angle));
-        arrow.transform.SetLocalPositionAndRotation(r3.normalized * 0.25f, Quaternion.Euler(0, 0, angle - 90));
+        arrow.transform.SetLocalPositionAndRotation(r3.normalized * dashDistance * 0.9f, Quaternion.Euler(0, 0, angle - 90));
         
 
     }
@@ -154,8 +156,7 @@ public class basicPlayerController : MonoBehaviour
     }
     void Awake()
     {
-        //controls.Player.Move.performed += ctx => l3Float = ctx.ReadValue<float>();
-
+        #region Controls
         controls = new PlayerControls();
         controls.Enable();
 
@@ -167,6 +168,15 @@ public class basicPlayerController : MonoBehaviour
 
 
         controls.Player.Dash.canceled += ctx => Dash();
+        #endregion Controls
+
+       
+    }
+    private void OnValidate()
+    {
+        // daShDuration * to turn the bound into a proper integral (Same cuerve but squished by an amount (assuming thet dashduration < 1))
+        dashDistance =  dashDuration * dashPower*( AnimationCurveExtensions.Integrate(dashCurve, sliceCount:35));
+        arrow.transform.SetLocalPositionAndRotation(Vector2.up * dashDistance * 0.9f, Quaternion.identity);
 
     }
 }

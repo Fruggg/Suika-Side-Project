@@ -8,7 +8,7 @@ public class Merge : MonoBehaviour
 
    
     [SerializeField] float speedReq;
-    [SerializeField] float defaultScale = 1.5f;
+    [SerializeField] float defaultScale = 3f;
     [SerializeField] int killStage;
     [SerializeField] GameObject deathExplosion;
     private float timerTillDeath;
@@ -95,7 +95,7 @@ public class Merge : MonoBehaviour
         }
         BallType type = (BallType)(stage);
         this.ball = type;
-        float scale = defaultScale * stage;
+        float scale = defaultScale*stage /( 1 + stage);
         transform.localScale = scale * Vector3.one;
         //todo unComment when we actually have sprites
         sr.sprite = ballSprites[stage];

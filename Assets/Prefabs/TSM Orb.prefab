@@ -229,7 +229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Merge
   speedReq: 600
   defaultScale: 3
-  killStage: 6
+  killStage: 5
   deathExplosion: {fileID: 3995280466757269240, guid: 5454d25fd1992cb459039af6d85b059e, type: 3}
   deathTime: 10
   textTimer: {fileID: 797853512777047901}

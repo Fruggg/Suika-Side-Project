@@ -24,7 +24,7 @@ public class TimeStopper : MonoBehaviour
     public void RequestTimeScale(float timeScale, float duration, int priority = 0)
     {
         Tuple<int, float, float> request = new Tuple<int, float, float>(priority, timeScale, duration);
-        Debug.Log("What the fuck!!!!");
+     
         timeScaleRequestsInAction.Add(request);
     }
     public void StopTime(float duration)
@@ -42,7 +42,7 @@ public class TimeStopper : MonoBehaviour
             // Hold off, the priority is too low
             var request = timeScaleRequestsInAction[0];
             if (currentRequestPriority >= timeScaleRequestsInAction[0].Item1) return;
-            Debug.Log($"???? {timeScaleRequestsInAction.Count}");
+        
 
             // Do it
             // Remove the request, buck off the old routine, and begin a new routine with this
